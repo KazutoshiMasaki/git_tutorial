@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Send Slack notification
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL: 'C059QQDDE2U' # 送信先チャンネルのIDを設定
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"PRがmergeされました。terraform applyの実行をお願いします。"}' $SLACK_WEBHOOK_URL
+          curl -X POST -H "Authorization: Bearer $SLACK_BOT_TOKEN" -H "Content-type: application/json" \
+          --data '{"channel":"'$SLACK_CHANNEL'","text":"<!channel> GIP変更のPRがMergeされました。terraform applyの実行を各自でお願いします。"}' \
+          https://slack.com/api/chat.postMessage
