@@ -1,0 +1,16 @@
+name: Notify Slack on PR Merge
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  slack_notification:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Slack notification
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"PRがmergeされました。terraform applyの実行をお願いします。"}' $SLACK_WEBHOOK_URL
