@@ -12,7 +12,7 @@ jobs:
       - name: Send Slack notification
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-          SLACK_CHANNEL: 'C059QQDDE2U' # #個人検証用のチャンネルIDを設定
+          SLACK_CHANNEL: 'C059QQDDE2U' # #個人検証用 のチャンネルIDを設定
         run: |
           curl -X POST -H "Authorization: Bearer $SLACK_BOT_TOKEN" -H "Content-type: application/json" \
           --data '{"channel":"'$SLACK_CHANNEL'","text":"<!channel> moduleの新しいバージョンがリリースされました。変更を確認の上、terraform applyの実行を各自でお願いします。"}' \
